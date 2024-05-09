@@ -3,46 +3,49 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace DefaultNamespace
+namespace MainGameScript
 {
-    public class NoteData
+    public static class NoteData
     {
         public static List<double> LoadRanks()
         {
-            string strData = readFile("Results/results.r");
+            var strData = readFile("Results/results.r");
             if (strData.Equals("")) return new List<double>();
-            string[] arr = strData.Replace(" ", "").Replace("\n", "").Split(",");
-            return arr.Select(t => double.Parse(t)).ToList();
+            var arr = strData.Replace(" ", "").Replace("\n", "").Split(",");
+            return arr.Select(double.Parse).ToList();
         }
-        public static void SaveRanks(List<double> list)
+        public static void SaveRanks(IEnumerable<double> list)
         {
-            string res = list.Aggregate("", (current, d) => current + (d + ","));
+            var res = list.Aggregate("", (current, d) => current + (d + ","));
             writeFile("Results/results.r", res.Substring(0, res.Length-1));
         }
         public static Queue<Tuple<Tuple<float, float>, int>> LoadData(string title)
         { 
             Queue<Tuple<Tuple<float, float>, int>> list = new();
             
-            string strData = readFile("Assets/NoteData/" + title + ".nd");
-            string[] arr = strData.Replace(" ", "").Replace("\n", "").Split(",");
-            for (int i = 0; i < arr.Length; i++)
+            var strData = readFile("Assets/NoteData/" + title + ".nd");
+            var arr = strData.Replace(" ", "").Replace("\n", "").Split(",");
+            foreach (var s in arr)
             {
-                string[] data = arr[i].Split("|");
-                if (data.Length == 2) list.Enqueue(new Tuple<Tuple<float, float>, int>(new Tuple<float, float>(float.Parse(data[0]), float.Parse(data[0])), int.Parse(data[1])));
-                else list.Enqueue(new Tuple<Tuple<float, float>, int>(new Tuple<float, float>(float.Parse(data[0]), float.Parse(data[2])), int.Parse(data[1])));
+                string[] data = s.Split("|");
+                list.Enqueue(data.Length == 2
+                    ? new Tuple<Tuple<float, float>, int>(
+                        new Tuple<float, float>(float.Parse(data[0]), float.Parse(data[0])), int.Parse(data[1]))
+                    : new Tuple<Tuple<float, float>, int>(
+                        new Tuple<float, float>(float.Parse(data[0]), float.Parse(data[2])), int.Parse(data[1])));
             }
             return list;
         }
 
         private static string readFile(string path)
         {
-            String line, result = "";
+            var result = "";
             try
             {
                 //Pass the file path and file name to the StreamReader constructor
-                StreamReader sr = new StreamReader(path);
+                var sr = new StreamReader(path);
                 //Read the first line of text
-                line = sr.ReadLine();
+                var line = sr.ReadLine();
                 //Continue to read until you reach end of file
                 while (line != null)
                 {
@@ -67,7 +70,7 @@ namespace DefaultNamespace
         {
             try
             {
-                StreamWriter sw = new StreamWriter(path);
+                var sw = new StreamWriter(path);
                 sw.Write(content);
                 sw.Flush();
                 sw.Close();

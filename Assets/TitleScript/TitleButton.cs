@@ -1,28 +1,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
-public class TitleButton : MonoBehaviour
+namespace TitleScript
 {
-    public AudioSource player;
-    public List<AudioClip> Musics;
-    // Start is called before the first frame update
-    void Start()
+    public class TitleButton : MonoBehaviour
     {
-        player.clip = Musics[Random.Range(0, Musics.Count)];
-        player.Play();
-    }
-    
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        public AudioSource player;
+        [FormerlySerializedAs("Musics")] public List<AudioClip> musics;
+        // Start is called before the first frame update
+        private void Start()
         {
-            Application.Quit();
+            player.clip = musics[Random.Range(0, musics.Count)];
+            player.Play();
         }
-    }
+    
+        public void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                Application.Quit();
+            }
+        }
 
-    public void StartButton()
-    {
-        SceneManager.LoadScene("SelectScene");
+        public void StartButton()
+        {
+            SceneManager.LoadScene("SelectScene");
+        }
     }
 }

@@ -6,6 +6,9 @@ You can adjust the pitch of the music.
 Earning P rank on all music unlocks 2.5x speed.  
 You can see patterns with autoplay.
 ## Music list
+- かめりあ - Exit This Earth's Atomosphere
+- HyuN - Princess of Winter
+- seatrus - Oyasmy
 - HyuN - Grin
 - sasakure.UK - the EmpErroR
 - seatrus - Querasis
