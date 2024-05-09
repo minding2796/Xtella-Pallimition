@@ -29,7 +29,7 @@ namespace SelectScripts
 
         public void Awake()
         {
-            _lss ??= "Princess of Winter|HyuN|17|11|87166";
+            _lss ??= "Exit This Earth's Atomosphere|かめりあ|18|4|237781";
             SelectButton(_lss);
             if (!Directory.Exists("Screenshots/")) Directory.CreateDirectory("Screenshots/");
             if (!Directory.Exists("Results/")) Directory.CreateDirectory("Results/");
@@ -38,7 +38,7 @@ namespace SelectScripts
             while (_ranks.Count < isPp.Count()) _ranks.Add(0);
             _instance = this;
             checkBox.color = NoteFalling.autoPlay ? new Color(255, 255, 255, 255) : new Color(255, 255, 255, 0);
-            speed.text = (!(Math.Abs(NoteFalling.speed - 1) < 0) ? (Math.Abs(NoteFalling.speed - 2) < 0 ? "2.0" : NoteFalling.speed) : "1.0") + "x";
+            speed.text = (!(Math.Abs(NoteFalling.speed - 1) <= 0) ? (Math.Abs(NoteFalling.speed - 2) <= 0 ? "2.0" : NoteFalling.speed) : "1.0") + "x";
             audioSource.pitch = NoteFalling.speed;
         }
 
@@ -110,7 +110,7 @@ namespace SelectScripts
 
         public void SpeedIncreaseButton()
         {
-            speed.text = Math.Min(float.Parse(speed.text[..^1]) + 0.11, _ranks.TrueForAll(s => Math.Abs(s - 100) < 0) ? 2.55 : 2.05).ToString(CultureInfo.InvariantCulture)[..3] + "x";
+            speed.text = Math.Min(float.Parse(speed.text[..^1]) + 0.11, _ranks.TrueForAll(s => Math.Abs(s - 100) <= 0) ? 2.55 : 2.05).ToString(CultureInfo.InvariantCulture)[..3] + "x";
             NoteFalling.speed = float.Parse(speed.text[..^1]);
             audioSource.pitch = NoteFalling.speed;
         }
