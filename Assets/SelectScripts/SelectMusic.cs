@@ -29,7 +29,7 @@ namespace SelectScripts
 
         public void Awake()
         {
-            _lss ??= "Exit This Earth's Atomosphere|かめりあ|18|4|237781";
+            _lss ??= "Disorder|HyuN feat. Yuri|21|0|92050";
             SelectButton(_lss);
             if (!Directory.Exists("Screenshots/")) Directory.CreateDirectory("Screenshots/");
             if (!Directory.Exists("Results/")) Directory.CreateDirectory("Results/");
@@ -44,7 +44,7 @@ namespace SelectScripts
 
         public void Update()
         {
-            for (int i = 0; i < isPp.Count; i++)
+            for (var i = 0; i < isPp.Count; i++)
             {
                 isPp[i].text = Result.SplitRate(_ranks[i]) + " " + Result.getRank(_ranks[i], false);
                 isPp[i].color =  Result.getRankColor(_ranks[i]);

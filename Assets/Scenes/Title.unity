@@ -600,7 +600,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 654429572}
-  Musics:
+  musics:
   - {fileID: 8300000, guid: 905109ddb2f64f643a7e2799248616e8, type: 3}
   - {fileID: 8300000, guid: 6adcfcf76907978488e0e2e62ffd9668, type: 3}
   - {fileID: 8300000, guid: 98c6f0d7d6d05a64eb72a8242e270691, type: 3}
@@ -620,6 +620,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: dc88572f056be824b8266c24ae999982, type: 3}
   - {fileID: 8300000, guid: a081bae83389503439e140a409e5094b, type: 3}
   - {fileID: 8300000, guid: fcc58eee69d957946861ad13f1bf1c8b, type: 3}
+  - {fileID: 8300000, guid: bb484986a5253aa4e9136704977a75db, type: 3}
+  - {fileID: 8300000, guid: 1cb4a8ac4ca43934a84f6fb580405379, type: 3}
+  - {fileID: 8300000, guid: bb58f7b22a6c8ee4fb5acacdea990eb4, type: 3}
 --- !u!1 &1012793340
 GameObject:
   m_ObjectHideFlags: 0
