@@ -1,6 +1,6 @@
 # Xtella Pallimition
 Xtella Pallimition is a rhythm game created with the Unity game engine.  
-This rhythm game has 22 songs.
+This rhythm game has 25 songs.
 ## Key features
 You can adjust the pitch of the music.  
 Earning P rank on all music unlocks 2.5x speed.  
@@ -18,6 +18,7 @@ You can see patterns with autoplay.
 - モリモリあつし - PUPA
 - かめりあ - Hello (BPM) 2024
 - ISOMERZ (DJ Raisei + seatrus) - Symmetric
+- TJ.hangneil - Apollo
 - seatrus - M A X I M U M B L A S T E R
 - seatrus - EXXTRA JUDGEMENT
 - USAO & かめりあ - Möbius
@@ -27,4 +28,5 @@ You can see patterns with autoplay.
 - xi vs. モリモリあつし - SuddeИDeath
 - Laur - Exitium (Extended)
 - Xeveir and Xeron vs. XH ft.JinoBeats - Eternal SubconsciencƎ
+- DJ Raisei - Fractured Heaven
 - minding2796 - AtomHomus

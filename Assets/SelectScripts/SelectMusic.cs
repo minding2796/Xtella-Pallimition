@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -6,6 +7,7 @@ using System.Linq;
 using MainGameScript;
 using ResultScript;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
@@ -23,13 +25,19 @@ namespace SelectScripts
         [FormerlySerializedAs("isPP")] public List<TextMeshProUGUI> isPp;
         private static List<double> _ranks = new();
         public RawImage icon, checkBox;
+        public GameObject contentList;
         private int _musicIdx = 9;
         private static SelectMusic _instance;
         private static string _lss;
 
+        public static SelectMusic getInstance()
+        {
+            return _instance;
+        }
+        
         public void Awake()
         {
-            _lss ??= "Disorder|HyuN feat. Yuri|21|0|92050";
+            _lss ??= "Disorder|HyuN feat. Yuri|21|0|193|92050";
             SelectButton(_lss);
             if (!Directory.Exists("Screenshots/")) Directory.CreateDirectory("Screenshots/");
             if (!Directory.Exists("Results/")) Directory.CreateDirectory("Results/");
@@ -40,6 +48,23 @@ namespace SelectScripts
             checkBox.color = NoteFalling.autoPlay ? new Color(255, 255, 255, 255) : new Color(255, 255, 255, 0);
             speed.text = (!(Math.Abs(NoteFalling.speed - 1) <= 0) ? (Math.Abs(NoteFalling.speed - 2) <= 0 ? "2.0" : NoteFalling.speed) : "1.0") + "x";
             audioSource.pitch = NoteFalling.speed;
+        }
+
+        public void SortMusic(int idx, bool inc)
+        {
+            var arr = contentList.GetComponentsInChildren<Button>();
+            Array.Sort(arr, (a, b) => compareButtonBy(a, b, idx, inc));
+            foreach (var button in arr) button.transform.SetAsLastSibling();
+        }
+
+        private static int compareButtonBy(Button a, Button b, int index, bool inc)
+        {
+            var data1 = a.onClick.Serialize().json;
+            data1 = (data1 = data1[(data1.IndexOf("\"m_StringArgument\":\"", StringComparison.Ordinal) + 20)..])[..data1.IndexOf("\"", StringComparison.Ordinal)].Split("|")[index];
+            var data2 = b.onClick.Serialize().json;
+            data2 = (data2 = data2[(data2.IndexOf("\"m_StringArgument\":\"", StringComparison.Ordinal) + 20)..])[..data2.IndexOf("\"", StringComparison.Ordinal)].Split("|")[index];
+            if (int.TryParse(data1.Split("~")[0], out var x) && int.TryParse(data2.Split("~")[0], out var y)) return inc ? x.CompareTo(y) : -x.CompareTo(y);
+            return inc ? string.Compare(data1, data2, StringComparison.Ordinal) : -string.Compare(data1, data2, StringComparison.Ordinal);
         }
 
         public void Update()
@@ -80,7 +105,7 @@ namespace SelectScripts
             icon.texture = icons[int.Parse(info.Split("|")[2])];
             audioSource.clip = null;
             audioSource.clip = musics[int.Parse(info.Split("|")[2])];
-            audioSource.time = float.Parse(info.Split("|")[4]) / 1000;
+            audioSource.time = float.Parse(info.Split("|")[5]) / 1000;
             audioSource.Play();
             _musicIdx = int.Parse(info.Split("|")[2]);
         }
