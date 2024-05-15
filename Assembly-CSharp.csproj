@@ -52,9 +52,11 @@
     <Compile Include="Assets\MainGameScript\NoteData.cs" />
     <Compile Include="Assets\SelectScripts\SelectMusic.cs" />
     <Compile Include="Assets\MainGameScript\NoteDestroyer.cs" />
+    <Compile Include="Assets\SelectScripts\AutoPlayButton.cs" />
     <Compile Include="Assets\MainGameScript\NoteFalling.cs" />
     <Compile Include="Assets\TitleScript\TitleButton.cs" />
     <Compile Include="Assets\MainGameScript\ActiveLines.cs" />
+    <Compile Include="Assets\SelectScripts\SelectButtonInit.cs" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />

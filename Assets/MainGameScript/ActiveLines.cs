@@ -31,7 +31,7 @@ namespace MainGameScript
             if (Input.GetKeyDown(KeyCode.S)) d2.SetActive(false);
             if (Input.GetKeyDown(KeyCode.Semicolon)) d3.SetActive(false);
             if (Input.GetKeyDown(KeyCode.Quote)) d4.SetActive(false);
-            pe.color = new Color(255, 255, 255, Result.getRate() >= 100 ? Math.Min(pe.color.a+0.1f, 1) : Math.Max(pe.color.a-0.1f, 0));
+            pe.color = new Color(255, 255, 255, Result.getRate() >= 100 ? Math.Min(pe.color.a+0.01f, 1) : Math.Max(pe.color.a-0.01f, 0));
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 Lines.currentCombo = 0;

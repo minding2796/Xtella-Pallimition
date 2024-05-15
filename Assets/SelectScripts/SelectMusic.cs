@@ -22,9 +22,10 @@ namespace SelectScripts
         public List<Texture> icons;
         public TMP_InputField nfd, jd;
         public TextMeshProUGUI title, composer, level, speed;
+        public RawImage levelImage;
         [FormerlySerializedAs("isPP")] public List<TextMeshProUGUI> isPp;
         private static List<double> _ranks = new();
-        public RawImage icon, checkBox;
+        public RawImage icon;
         public GameObject contentList;
         private int _musicIdx = 9;
         private static SelectMusic _instance;
@@ -45,24 +46,21 @@ namespace SelectScripts
             _ranks = NoteData.LoadRanks();
             while (_ranks.Count < isPp.Count()) _ranks.Add(0);
             _instance = this;
-            checkBox.color = NoteFalling.autoPlay ? new Color(255, 255, 255, 255) : new Color(255, 255, 255, 0);
             speed.text = (!(Math.Abs(NoteFalling.speed - 1) <= 0) ? (Math.Abs(NoteFalling.speed - 2) <= 0 ? "2.0" : NoteFalling.speed) : "1.0") + "x";
             audioSource.pitch = NoteFalling.speed;
         }
 
         public void SortMusic(int idx, bool inc)
         {
-            var arr = contentList.GetComponentsInChildren<Button>();
+            var arr = contentList.GetComponentsInChildren<SelectButtonInit>();
             Array.Sort(arr, (a, b) => compareButtonBy(a, b, idx, inc));
             foreach (var button in arr) button.transform.SetAsLastSibling();
         }
 
-        private static int compareButtonBy(Button a, Button b, int index, bool inc)
+        private static int compareButtonBy(SelectButtonInit a, SelectButtonInit b, int index, bool inc)
         {
-            var data1 = a.onClick.Serialize().json;
-            data1 = (data1 = data1[(data1.IndexOf("\"m_StringArgument\":\"", StringComparison.Ordinal) + 20)..])[..data1.IndexOf("\"", StringComparison.Ordinal)].Split("|")[index];
-            var data2 = b.onClick.Serialize().json;
-            data2 = (data2 = data2[(data2.IndexOf("\"m_StringArgument\":\"", StringComparison.Ordinal) + 20)..])[..data2.IndexOf("\"", StringComparison.Ordinal)].Split("|")[index];
+            var data1 = a.data.Split("|")[index];
+            var data2 = b.data.Split("|")[index];
             if (int.TryParse(data1.Split("~")[0], out var x) && int.TryParse(data2.Split("~")[0], out var y)) return inc ? x.CompareTo(y) : -x.CompareTo(y);
             return inc ? string.Compare(data1, data2, StringComparison.Ordinal) : -string.Compare(data1, data2, StringComparison.Ordinal);
         }
@@ -91,17 +89,9 @@ namespace SelectScripts
             _lss = info;
             title.text = info.Split("|")[0].Replace("\\n", "\n");
             composer.text = info.Split("|")[1].Replace("\\n", "\n");
-            level.text = info.Split("|")[3];
-            if (info.Split("|")[3].Equals("ERROR"))
-            {
-                level.color = Color.red;
-                title.color = Color.red;
-            }
-            else
-            {
-                level.color = Color.magenta;
-                title.color = Color.white;
-            }
+            level.text = "LEVEL : " + info.Split("|")[3];
+            levelImage.color = getColorByLevel(info.Split("|")[3]);
+            title.color = info.Split("|")[3].Equals("ERROR") ? Color.red : Color.white;
             icon.texture = icons[int.Parse(info.Split("|")[2])];
             audioSource.clip = null;
             audioSource.clip = musics[int.Parse(info.Split("|")[2])];
@@ -120,10 +110,20 @@ namespace SelectScripts
             SceneManager.LoadScene("MainGame");
         }
 
-        public void AutoPlayButton()
+        public static Color getColorByLevel(string level)
         {
-            NoteFalling.autoPlay = !NoteFalling.autoPlay;
-            checkBox.color = NoteFalling.autoPlay ? new Color(255, 255, 255, 255) : new Color(255, 255, 255, 0);
+            if (level.Equals("ERROR")) return Color.HSVToRGB(0.91f,0.85f,1f);
+            return int.Parse(level) switch
+            {
+                < 2 => Color.HSVToRGB(0.48f, 0.18f, 0.97f),
+                < 5 => Color.HSVToRGB(0.36f, 0.63f, 0.97f),
+                < 10 => Color.HSVToRGB(0.56f,0.63f,0.97f),
+                < 20 => Color.HSVToRGB(0.08f,0.76f,0.93f),
+                < 30 => Color.HSVToRGB(0f, 1f, 1f),
+                < 40 => Color.HSVToRGB(0.81f, 0.59f, 0.89f),
+                < 50 => Color.HSVToRGB(0.7f, 0.59f, 0.89f),
+                _ => Color.gray
+            };
         }
 
         public void SpeedDecreaseButton()
