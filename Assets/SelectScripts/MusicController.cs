@@ -11,11 +11,24 @@ namespace SelectScripts
         public TextMeshProUGUI currentTime, maxTime;
         public Button pauseButton;
         public Sprite pause, play;
-        private bool _pauseState;
-        
+        public static bool pauseState;
+
+        public static MusicController Instance { get; private set; }
+
+        private void Awake()
+        {
+            Instance = this;
+        }
+
         private void Update()
         {
-            
+            if (!SelectMusic.getInstance().audioSource.isPlaying && SelectMusic.getInstance().audioSource.time >= SelectMusic.getInstance().audioSource.clip.length)
+            {
+                SelectMusic.getInstance().audioSource.clip = null;
+                SelectMusic.getInstance().audioSource.clip = SelectMusic.getInstance().musics[int.Parse(SelectMusic.lss.Split("|")[2])];
+                SelectMusic.getInstance().audioSource.time = float.Parse(SelectMusic.lss.Split("|")[5]) / 1000;
+                SelectMusic.getInstance().audioSource.Play();
+            }
             scrollbar.value = SelectMusic.getInstance().audioSource.time / SelectMusic.getInstance().audioSource.clip.length;
             currentTime.text = getTimeFromFloat(SelectMusic.getInstance().audioSource.time);
             maxTime.text = getTimeFromFloat(SelectMusic.getInstance().audioSource.clip.length);
@@ -30,13 +43,14 @@ namespace SelectScripts
         public void TimeChange()
         {
             SelectMusic.getInstance().audioSource.time = Math.Max(Math.Min(scrollbar.value * SelectMusic.getInstance().audioSource.clip.length, SelectMusic.getInstance().audioSource.clip.length-0.001f), 0);
+            if (!SelectMusic.getInstance().audioSource.isPlaying && !pauseState) SelectMusic.getInstance().audioSource.Play();
         }
 
         public void Pause()
         {
-            _pauseState = !_pauseState;
-            pauseButton.image.sprite = _pauseState ? play : pause;
-            if (_pauseState) SelectMusic.getInstance().audioSource.Pause();
+            pauseState = !pauseState;
+            pauseButton.image.sprite = pauseState ? play : pause;
+            if (pauseState) SelectMusic.getInstance().audioSource.Pause();
             else SelectMusic.getInstance().audioSource.Play();
         }
 

@@ -20,7 +20,7 @@ namespace SelectScripts
             var block = info.button.GetComponent<Button>().colors;
             Color.RGBToHSV(SelectMusic.getColorByLevel(data.Split("|")[3]), out var h, out var s, out var v);
             block.highlightedColor = Color.HSVToRGB(h, s - 0.1f, v);
-            block.pressedColor = Color.HSVToRGB(h, s, v - 0.3f);
+            block.pressedColor = Color.HSVToRGB(h, s, v - 0.2f);
             block.selectedColor = SelectMusic.getColorByLevel(data.Split("|")[3]);
             info.button.GetComponent<Button>().colors = block;
         }

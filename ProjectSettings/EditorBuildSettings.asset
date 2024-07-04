@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainGame.unity
     guid: 18e6c60f47e956c4b82327c89fd76aff
+  - enabled: 1
+    path: Assets/Scenes/OffsetSettingScene.unity
+    guid: 5d1695ba0839c714785c5f6d4202176d
   m_configObjects: {}

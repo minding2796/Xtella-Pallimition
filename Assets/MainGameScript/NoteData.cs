@@ -7,6 +7,15 @@ namespace MainGameScript
 {
     public static class NoteData
     {
+        public static Tuple<float, float> LoadOffsets()
+        {
+            var strData = readFile("Results/offsets.r");
+            return strData.Equals("") ? new Tuple<float, float>(0f, 0f) : new Tuple<float, float>(float.Parse(strData.Split(",")[0]), float.Parse(strData.Split(",")[1]));
+        }
+        public static void SaveOffsets(float nfd, float jd)
+        {
+            writeFile("Results/offsets.r", nfd + "," + jd);
+        }
         public static List<double> LoadRanks()
         {
             var strData = readFile("Results/results.r");
@@ -17,7 +26,7 @@ namespace MainGameScript
         public static void SaveRanks(IEnumerable<double> list)
         {
             var res = list.Aggregate("", (current, d) => current + (d + ","));
-            writeFile("Results/results.r", res.Substring(0, res.Length-1));
+            writeFile("Results/results.r", res[..^1]);
         }
         public static Queue<Tuple<Tuple<float, float>, int>> LoadData(string title)
         { 

@@ -39,7 +39,9 @@ namespace MainGameScript
                 NoteFalling.getInstance().NoteData.Count <= 0)
             {
                 mainCam.enabled = false;
+                mainCam.GetComponent<AudioListener>().enabled = false;
                 resultCam.enabled = true;
+                resultCam.GetComponent<AudioListener>().enabled = true;
                 Result.getInstance().updateResult();
             }
 
@@ -227,7 +229,7 @@ namespace MainGameScript
         private static string CalcJudgement(float noteTime)
         {
             // return noteTime + "/" + (Time.time * 1000 - NoteFalling.startTime);
-            var error = noteTime - (Time.time * 1000 - NoteFalling.startTime - jd) * NoteFalling.speed;
+            var error = noteTime - (Time.time * 1000 - NoteFalling.startTime - NoteFalling.nfd - jd) * NoteFalling.speed;
             error /= 1000;
             if (error > 0.3f) return "FB";
             error = Math.Abs(error);
@@ -250,7 +252,6 @@ namespace MainGameScript
                     currentCombo++;
                     return "Bad..";
             }
-
             msc++;
             currentCombo = 0;
             return "Miss..";
@@ -258,7 +259,7 @@ namespace MainGameScript
         private static string CalcLongJudgement(float noteTime)
         {
             // return noteTime + "/" + (Time.time * 1000 - NoteFalling.startTime);
-            var error = noteTime - (Time.time * 1000 - NoteFalling.startTime - jd) * NoteFalling.speed;
+            var error = noteTime - (Time.time * 1000 - NoteFalling.startTime - NoteFalling.nfd - jd) * NoteFalling.speed;
             error /= 1000;
             error = Math.Abs(error);
             if (error <= 0.15f)

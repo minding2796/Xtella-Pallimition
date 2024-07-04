@@ -12,7 +12,7 @@ namespace MainGameScript
             {
                 if (!NoteFalling.autoPlay)
                 {
-                    while (Lines.getInstance().Line1.Peek().Item1.Item1 - (Time.time * 1000 - NoteFalling.startTime - Lines.jd) * NoteFalling.speed < err)
+                    while (Lines.getInstance().Line1.Peek().Item1.Item1 - (Time.time * 1000 - NoteFalling.startTime - NoteFalling.nfd - Lines.jd) * NoteFalling.speed < err)
                     {
                         if (Lines.getInstance().line1Active) break;
                         if (Lines.getInstance().Line1.Peek().Item1.Item2 - Lines.getInstance().Line1.Peek().Item1.Item1 != 0)
@@ -27,7 +27,7 @@ namespace MainGameScript
             }
             if (Lines.getInstance().Line1.Count != 0)
             {
-                while (Lines.getInstance().Line1.Peek().Item1.Item2 - (Time.time * 1000 - NoteFalling.startTime - Lines.jd) * NoteFalling.speed < err)
+                while (Lines.getInstance().Line1.Peek().Item1.Item2 - (Time.time * 1000 - NoteFalling.startTime - NoteFalling.nfd - Lines.jd) * NoteFalling.speed < err)
                 {
                     if (NoteFalling.autoPlay && Lines.getInstance().Line1.Peek().Item1.Item2 - Lines.getInstance().Line1.Peek().Item1.Item1 != 0)
                     {
@@ -43,7 +43,7 @@ namespace MainGameScript
             {
                 if (!NoteFalling.autoPlay)
                 {
-                    while (Lines.getInstance().Line2.Peek().Item1.Item1 - (Time.time * 1000 - NoteFalling.startTime - Lines.jd) * NoteFalling.speed < err)
+                    while (Lines.getInstance().Line2.Peek().Item1.Item1 - (Time.time * 1000 - NoteFalling.startTime - NoteFalling.nfd - Lines.jd) * NoteFalling.speed < err)
                     {
                         if (Lines.getInstance().line2Active) break;
                         if (Lines.getInstance().Line2.Peek().Item1.Item2 - Lines.getInstance().Line2.Peek().Item1.Item1 != 0)
@@ -58,7 +58,7 @@ namespace MainGameScript
             }
             if (Lines.getInstance().Line2.Count != 0)
             {
-                while (Lines.getInstance().Line2.Peek().Item1.Item2 - (Time.time * 1000 - NoteFalling.startTime - Lines.jd) * NoteFalling.speed < err)
+                while (Lines.getInstance().Line2.Peek().Item1.Item2 - (Time.time * 1000 - NoteFalling.startTime - NoteFalling.nfd - Lines.jd) * NoteFalling.speed < err)
                 {
                     if (NoteFalling.autoPlay && Lines.getInstance().Line2.Peek().Item1.Item2 - Lines.getInstance().Line2.Peek().Item1.Item1 != 0)
                     {
@@ -74,7 +74,7 @@ namespace MainGameScript
             {
                 if (!NoteFalling.autoPlay)
                 {
-                    while (Lines.getInstance().Line3.Peek().Item1.Item1 - (Time.time * 1000 - NoteFalling.startTime - Lines.jd) * NoteFalling.speed < err)
+                    while (Lines.getInstance().Line3.Peek().Item1.Item1 - (Time.time * 1000 - NoteFalling.startTime - NoteFalling.nfd - Lines.jd) * NoteFalling.speed < err)
                     {
                         if (Lines.getInstance().line3Active) break;
                         if (Lines.getInstance().Line3.Peek().Item1.Item2 - Lines.getInstance().Line3.Peek().Item1.Item1 != 0)
@@ -89,7 +89,7 @@ namespace MainGameScript
             }
             if (Lines.getInstance().Line3.Count != 0)
             {
-                while (Lines.getInstance().Line3.Peek().Item1.Item2 - (Time.time * 1000 - NoteFalling.startTime - Lines.jd) * NoteFalling.speed < err)
+                while (Lines.getInstance().Line3.Peek().Item1.Item2 - (Time.time * 1000 - NoteFalling.startTime - NoteFalling.nfd - Lines.jd) * NoteFalling.speed < err)
                 {
                     if (NoteFalling.autoPlay && Lines.getInstance().Line3.Peek().Item1.Item2 - Lines.getInstance().Line3.Peek().Item1.Item1 != 0)
                     {
@@ -105,7 +105,7 @@ namespace MainGameScript
             {
                 if (!NoteFalling.autoPlay)
                 {
-                    while (Lines.getInstance().Line4.Peek().Item1.Item1 - (Time.time * 1000 - NoteFalling.startTime - Lines.jd) * NoteFalling.speed < err)
+                    while (Lines.getInstance().Line4.Peek().Item1.Item1 - (Time.time * 1000 - NoteFalling.startTime - NoteFalling.nfd - Lines.jd) * NoteFalling.speed < err)
                     {
                         if (Lines.getInstance().line4Active) break;
                         if (Lines.getInstance().Line4.Peek().Item1.Item2 - Lines.getInstance().Line4.Peek().Item1.Item1 != 0)
@@ -120,7 +120,7 @@ namespace MainGameScript
             }
 
             if (Lines.getInstance().Line4.Count == 0) return;
-            while (Lines.getInstance().Line4.Peek().Item1.Item2 - (Time.time * 1000 - NoteFalling.startTime - Lines.jd) * NoteFalling.speed < err)
+            while (Lines.getInstance().Line4.Peek().Item1.Item2 - (Time.time * 1000 - NoteFalling.startTime - NoteFalling.nfd - Lines.jd) * NoteFalling.speed < err)
             {
                 if (NoteFalling.autoPlay && Lines.getInstance().Line4.Peek().Item1.Item2 - Lines.getInstance().Line4.Peek().Item1.Item1 != 0)
                 {
