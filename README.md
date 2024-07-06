@@ -19,6 +19,7 @@ You can see patterns with autoplay.
 - かめりあ - Hello (BPM) 2024
 - ISOMERZ (DJ Raisei + seatrus) - Symmetric
 - TJ.hangneil - Apollo
+- seatrus - The Princess was gills breathing.
 - seatrus - M A X I M U M B L A S T E R
 - seatrus - EXXTRA JUDGEMENT
 - USAO & かめりあ - Möbius
