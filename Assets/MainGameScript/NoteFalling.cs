@@ -76,7 +76,7 @@ namespace MainGameScript
             };
         }
 
-        private static Vector3 getPosByLine(int line, float overtime, float size)
+        public static Vector3 getPosByLine(int line, float overtime, float size)
         {
             var cal = size / 50 / speed;
             var loc = overtime / 50 / speed;
@@ -90,7 +90,7 @@ namespace MainGameScript
             };
         }
 
-        private static Vector3 getNoteSize(float size)
+        public static Vector3 getNoteSize(float size)
         {
             return new Vector3(1.3985f, 0.2734f + size/50/speed);
         }

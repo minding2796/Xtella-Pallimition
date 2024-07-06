@@ -45,6 +45,33 @@ namespace MainGameScript
                 Result.getInstance().updateResult();
             }
 
+            if (Line1.Count > 0 && (Line1.Peek().Item1.Item1 - (Time.time * 1000 - NoteFalling.startTime - NoteFalling.nfd - jd) * NoteFalling.speed) < 0)
+            {
+                var time = (Time.time * 1000 - NoteFalling.startTime - NoteFalling.nfd - jd) * NoteFalling.speed;
+                Line1.Peek().Item2.transform.localScale = NoteFalling.getNoteSize(Line1.Peek().Item1.Item2 - time);
+                Line1.Peek().Item2.transform.position = NoteFalling.getPosByLine(1, time - (Time.time * 1000 + NoteFalling.nfd - NoteFalling.startTime) * NoteFalling.speed, Line1.Peek().Item1.Item2 - time);
+            }
+            if (Line2.Count > 0 && (Line2.Peek().Item1.Item1 - (Time.time * 1000 - NoteFalling.startTime - NoteFalling.nfd - jd) * NoteFalling.speed) < 0)
+            {
+                var time = (Time.time * 1000 - NoteFalling.startTime - NoteFalling.nfd - jd) * NoteFalling.speed;
+                Line2.Peek().Item2.transform.localScale = NoteFalling.getNoteSize(Line2.Peek().Item1.Item2 - time);
+                Line2.Peek().Item2.transform.position = NoteFalling.getPosByLine(2, time - (Time.time * 1000 + NoteFalling.nfd - NoteFalling.startTime) * NoteFalling.speed, Line2.Peek().Item1.Item2 - time);
+            }
+
+            if (Line3.Count > 0 && (Line3.Peek().Item1.Item1 - (Time.time * 1000 - NoteFalling.startTime - NoteFalling.nfd - jd) * NoteFalling.speed) < 0)
+            {
+                var time = (Time.time * 1000 - NoteFalling.startTime - NoteFalling.nfd - jd) * NoteFalling.speed;
+                Line3.Peek().Item2.transform.localScale = NoteFalling.getNoteSize(Line3.Peek().Item1.Item2 - time);
+                Line3.Peek().Item2.transform.position = NoteFalling.getPosByLine(3, time - (Time.time * 1000 + NoteFalling.nfd - NoteFalling.startTime) * NoteFalling.speed, Line3.Peek().Item1.Item2 - time);
+            }
+
+            if (Line4.Count > 0 && (Line4.Peek().Item1.Item1 - (Time.time * 1000 - NoteFalling.startTime - NoteFalling.nfd - jd) * NoteFalling.speed) < 0)
+            {
+                var time = (Time.time * 1000 - NoteFalling.startTime - NoteFalling.nfd - jd) * NoteFalling.speed;
+                Line4.Peek().Item2.transform.localScale = NoteFalling.getNoteSize(Line4.Peek().Item1.Item2 - time);
+                Line4.Peek().Item2.transform.position = NoteFalling.getPosByLine(4, time - (Time.time * 1000 + NoteFalling.nfd - NoteFalling.startTime) * NoteFalling.speed, Line4.Peek().Item1.Item2 - time);
+            }
+            
             if (NoteFalling.autoPlay) return;
             if (Input.GetKeyDown(KeyCode.A))
             {

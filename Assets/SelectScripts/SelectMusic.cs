@@ -20,7 +20,7 @@ namespace SelectScripts
         [FormerlySerializedAs("AudioSource")] public AudioSource audioSource;
         [FormerlySerializedAs("Musics")] public List<AudioClip> musics;
         public List<Texture> icons;
-        public TMP_InputField nfd, jd;
+        public TMP_InputField filter;
         public TextMeshProUGUI title, composer, level, speed;
         public RawImage levelImage;
         [FormerlySerializedAs("isPP")] public List<TextMeshProUGUI> isPp;
@@ -31,7 +31,9 @@ namespace SelectScripts
         public Sprite pauseSprite;
         private int _musicIdx = 9;
         private static SelectMusic _instance;
+        private SelectButtonInit[] _selectButtons;
         public static string lss;
+        private static string _lqs;
 
         public static SelectMusic getInstance()
         {
@@ -40,6 +42,7 @@ namespace SelectScripts
         
         public void Awake()
         {
+            _selectButtons = contentList.GetComponentsInChildren<SelectButtonInit>();
             lss ??= "Disorder|HyuN feat. Yuri|21|0|193|92050";
             SelectButton(lss);
             if (!Directory.Exists("Screenshots/")) Directory.CreateDirectory("Screenshots/");
@@ -54,21 +57,62 @@ namespace SelectScripts
             _instance = this;
             speed.text = (!(Math.Abs(NoteFalling.speed - 1) <= 0) ? (Math.Abs(NoteFalling.speed - 2) <= 0 ? "2.0" : NoteFalling.speed) : "1.0") + "x";
             audioSource.pitch = NoteFalling.speed;
+            StartCoroutine(FilterInit());
+        }
+
+        private IEnumerator FilterInit()
+        {
+            yield return null;
+            filter.text = _lqs;
+        }
+        
+        public void FilterMusic()
+        {
+            _lqs = filter.text;
+            foreach (var button in _selectButtons) button.gameObject.SetActive(FilterButtonBy(button, _lqs));
+        }
+
+        private bool FilterButtonBy(SelectButtonInit button, string query)
+        {
+            query = query.ToLower();
+            return query.Split("-").All(splitQuery=>
+                splitQuery.Trim().Length <= 0 ||
+                button.data.Split("|")[0].ToLower().Contains(splitQuery.Trim()) ||
+                MaskSpecialComposer(button.data.Split("|")[1].ToLower(), splitQuery.Trim()) ||
+                button.data.Split("|")[4].ToLower().Contains(splitQuery.Trim()) ||
+                button.data.Split("|")[3].ToLower().Contains(splitQuery.Trim()) ||
+                isPp[int.Parse(button.data.Split("|")[2])].text.ToLower().Contains(splitQuery.Trim()));
+        }
+
+        private static bool MaskSpecialComposer(string composer, string query)
+        {
+            return composer.Contains(query) || composer
+                .Replace("かめりあ", "camellia")
+                .Replace("モリモリあつし", "morimori atsushi")
+                .Replace("awc sound team", "ardolf sdmne takehirotei xeno metahumanboi xh cinamoro billiummoto")
+                .Contains(query);
         }
 
         public void SortMusic(int idx, bool inc)
         {
-            var arr = contentList.GetComponentsInChildren<SelectButtonInit>();
-            Array.Sort(arr, (a, b) => compareButtonBy(a, b, idx, inc));
-            foreach (var button in arr) button.transform.SetAsLastSibling();
+            Array.Sort(_selectButtons, (a, b) => compareButtonBy(a, b, idx, inc));
+            foreach (var button in _selectButtons) button.transform.SetAsLastSibling();
         }
 
         private static int compareButtonBy(SelectButtonInit a, SelectButtonInit b, int index, bool inc)
         {
             var data1 = a.data.Split("|")[index];
             var data2 = b.data.Split("|")[index];
-            if (int.TryParse(data1.Split("~")[0], out var x) && int.TryParse(data2.Split("~")[0], out var y)) return inc ? x.CompareTo(y) : -x.CompareTo(y);
-            return inc ? string.Compare(data1.ToLower(), data2.ToLower(), StringComparison.Ordinal) : -string.Compare(data1.ToLower(), data2.ToLower(), StringComparison.Ordinal);
+            int r;
+            if (int.TryParse(data1.Split("~")[0], out var x) && int.TryParse(data2.Split("~")[0], out var y))
+            {
+                r = inc ? x.CompareTo(y) : -x.CompareTo(y);
+                r = r == 0 ? string.Compare(a.data.Split("|")[0].ToLower(), b.data.Split("|")[0].ToLower(), StringComparison.Ordinal) : r;
+                return r == 0 ? string.Compare(a.data.Split("|")[1].ToLower(), b.data.Split("|")[1].ToLower(), StringComparison.Ordinal) : r;
+            }
+            r = inc ? string.Compare(data1.ToLower(), data2.ToLower(), StringComparison.Ordinal) : -string.Compare(data1.ToLower(), data2.ToLower(), StringComparison.Ordinal);
+            r = r == 0 ? string.Compare(a.data.Split("|")[0].ToLower(), b.data.Split("|")[0].ToLower(), StringComparison.Ordinal) : r;
+            return r == 0 ? string.Compare(a.data.Split("|")[1].ToLower(), b.data.Split("|")[1].ToLower(), StringComparison.Ordinal) : r;
         }
 
         public void Update()
