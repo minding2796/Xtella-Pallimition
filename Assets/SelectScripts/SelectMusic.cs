@@ -77,11 +77,22 @@ namespace SelectScripts
             query = query.ToLower();
             return query.Split("-").All(splitQuery=>
                 splitQuery.Trim().Length <= 0 ||
-                button.data.Split("|")[0].ToLower().Contains(splitQuery.Trim()) ||
+                MaskSpecialTitle(button.data.Split("|")[0], splitQuery.Trim()) ||
                 MaskSpecialComposer(button.data.Split("|")[1].ToLower(), splitQuery.Trim()) ||
                 button.data.Split("|")[4].ToLower().Contains(splitQuery.Trim()) ||
                 button.data.Split("|")[3].ToLower().Contains(splitQuery.Trim()) ||
                 isPp[int.Parse(button.data.Split("|")[2])].text.ToLower().Contains(splitQuery.Trim()));
+        }
+
+        private static bool MaskSpecialTitle(string title, string query)
+        {
+            return title.Contains(query) || title
+                .Replace("И", "n")
+                .Replace("Ǝ", "e")
+                .Replace("LΛ8YR", "labyr")
+                .Replace("ö", "o")
+                .ToLower()
+                .Contains(query);
         }
 
         private static bool MaskSpecialComposer(string composer, string query)
