@@ -51,12 +51,14 @@
     <Compile Include="Assets\ResultScript\Result.cs" />
     <Compile Include="Assets\MainGameScript\Lines.cs" />
     <Compile Include="Assets\MainGameScript\NoteData.cs" />
+    <Compile Include="Assets\LoadingScript\Loader.cs" />
     <Compile Include="Assets\SelectScripts\SelectMusic.cs" />
     <Compile Include="Assets\MainGameScript\NoteDestroyer.cs" />
     <Compile Include="Assets\SelectScripts\AutoPlayButton.cs" />
     <Compile Include="Assets\MainGameScript\NoteFalling.cs" />
     <Compile Include="Assets\TitleScript\TitleButton.cs" />
     <Compile Include="Assets\OffsetSettingScript\NoteSpawner.cs" />
+    <Compile Include="Assets\LoadingScript\Throbber.cs" />
     <Compile Include="Assets\MainGameScript\ActiveLines.cs" />
     <Compile Include="Assets\AudioVisualizer\AudioVisualizer.cs" />
     <Compile Include="Assets\SelectScripts\SelectButtonInit.cs" />

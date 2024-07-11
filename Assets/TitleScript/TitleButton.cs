@@ -34,7 +34,7 @@ namespace TitleScript
 
         public void StartButton()
         {
-            SceneManager.LoadScene("SelectScene");
+            SceneManager.LoadScene("LoadingScene");
         }
     }
 }
