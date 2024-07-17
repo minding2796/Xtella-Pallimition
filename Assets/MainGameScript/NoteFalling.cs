@@ -18,6 +18,7 @@ namespace MainGameScript
         public static float speed = 1.0f;
 
         public Queue<Tuple<Tuple<float, float>, int>> NoteData;
+        public readonly Queue<GameObject> PoolingObjects = new();
 
         private static NoteFalling _instance;
 
@@ -43,23 +44,14 @@ namespace MainGameScript
             if (NoteData.Count <= 0) return;
             while (NoteData.Peek().Item1.Item1 <= (Time.time * 1000 + nfd - startTime) * speed)
             {
-                if (NoteData.Peek().Item1.Item1 - NoteData.Peek().Item1.Item2 == 0)
-                {
-                    var noteInstance = Instantiate(note, getPosByLine(NoteData.Peek().Item2, Math.Min(NoteData.Peek().Item1.Item1 - (Time.time * 1000 + nfd - startTime) * speed, 0)), note.transform.rotation);
-                    noteInstance.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -20);
-                    Lines.getInstance().addNote(NoteData.Peek().Item2, noteInstance, NoteData.Peek().Item1);
-                    NoteData.Dequeue();
-                    if (NoteData.Count <= 0) return;
-                }
-                else
-                {
-                    var noteInstance = Instantiate(note, getPosByLine(NoteData.Peek().Item2, Math.Min(NoteData.Peek().Item1.Item1 - (Time.time * 1000 + nfd - startTime) * speed, 0), NoteData.Peek().Item1.Item2 - NoteData.Peek().Item1.Item1), note.transform.rotation);
-                    noteInstance.transform.localScale = getNoteSize(NoteData.Peek().Item1.Item2 - NoteData.Peek().Item1.Item1);
-                    noteInstance.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -20);
-                    Lines.getInstance().addNote(NoteData.Peek().Item2, noteInstance, NoteData.Peek().Item1);
-                    NoteData.Dequeue();
-                    if (NoteData.Count <= 0) return;
-                }
+                var noteInstance = PoolingObjects.Count > 0 ? PoolingObjects.Dequeue() : Instantiate(note);
+                noteInstance.SetActive(true);
+                noteInstance.transform.position = getPosByLine(NoteData.Peek().Item2, Math.Min(NoteData.Peek().Item1.Item1 - (Time.time * 1000 + nfd - startTime) * speed, 0), NoteData.Peek().Item1.Item2 - NoteData.Peek().Item1.Item1);
+                noteInstance.transform.localScale = getNoteSize(NoteData.Peek().Item1.Item2 - NoteData.Peek().Item1.Item1);
+                noteInstance.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -20);
+                Lines.getInstance().addNote(NoteData.Peek().Item2, noteInstance, NoteData.Peek().Item1);
+                NoteData.Dequeue();
+                if (NoteData.Count <= 0) return;
             }
         }
 

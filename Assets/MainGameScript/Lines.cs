@@ -81,7 +81,11 @@ namespace MainGameScript
                     if (!jg.Equals("FB"))
                     {
                         judgement.text = jg;
-                        if (Line1.Peek().Item1.Item1 - Line1.Peek().Item1.Item2 == 0) Destroy(Line1.Dequeue().Item2);
+                        if (Line1.Peek().Item1.Item1 - Line1.Peek().Item1.Item2 == 0)
+                        {
+                            NoteFalling.getInstance().PoolingObjects.Enqueue(Line1.Peek().Item2);
+                            Line1.Dequeue().Item2.SetActive(false);
+                        }
                         else line1Active = true;
                     }
                 }
@@ -95,7 +99,8 @@ namespace MainGameScript
                     {
                         var jg = CalcLongJudgement(Line1.Peek().Item1.Item2);
                         judgement.text = jg;
-                        Destroy(Line1.Dequeue().Item2);
+                        NoteFalling.getInstance().PoolingObjects.Enqueue(Line1.Peek().Item2);
+                        Line1.Dequeue().Item2.SetActive(false);
                     }
                 }
             }
@@ -110,12 +115,10 @@ namespace MainGameScript
                         judgement.text = jg;
                         if (Line2.Peek().Item1.Item1 - Line2.Peek().Item1.Item2 == 0)
                         {
-                            Destroy(Line2.Dequeue().Item2);
+                            NoteFalling.getInstance().PoolingObjects.Enqueue(Line2.Peek().Item2);
+                            Line2.Dequeue().Item2.SetActive(false);
                         }
-                        else
-                        {
-                            line2Active = true;
-                        }
+                        else line2Active = true;
                     }
                 }
             }
@@ -128,7 +131,8 @@ namespace MainGameScript
                     {
                         var jg = CalcLongJudgement(Line2.Peek().Item1.Item2);
                         judgement.text = jg;
-                        Destroy(Line2.Dequeue().Item2);
+                        NoteFalling.getInstance().PoolingObjects.Enqueue(Line2.Peek().Item2);
+                        Line2.Dequeue().Item2.SetActive(false);
                     }
                 }
             }
@@ -141,7 +145,11 @@ namespace MainGameScript
                     if (!jg.Equals("FB"))
                     {
                         judgement.text = jg;
-                        if (Line3.Peek().Item1.Item1 - Line3.Peek().Item1.Item2 == 0) Destroy(Line3.Dequeue().Item2);
+                        if (Line3.Peek().Item1.Item1 - Line3.Peek().Item1.Item2 == 0)
+                        {
+                            NoteFalling.getInstance().PoolingObjects.Enqueue(Line3.Peek().Item2);
+                            Line3.Dequeue().Item2.SetActive(false);
+                        }
                         else line3Active = true;
                     }
                 }
@@ -155,7 +163,8 @@ namespace MainGameScript
                     {
                         var jg = CalcLongJudgement(Line3.Peek().Item1.Item2);
                         judgement.text = jg;
-                        Destroy(Line3.Dequeue().Item2);
+                        NoteFalling.getInstance().PoolingObjects.Enqueue(Line3.Peek().Item2);
+                        Line3.Dequeue().Item2.SetActive(false);
                     }
                 }
             }
@@ -170,12 +179,10 @@ namespace MainGameScript
                         judgement.text = jg;
                         if (Line4.Peek().Item1.Item1 - Line4.Peek().Item1.Item2 == 0)
                         {
-                            Destroy(Line4.Dequeue().Item2);
+                            NoteFalling.getInstance().PoolingObjects.Enqueue(Line4.Peek().Item2);
+                            Line4.Dequeue().Item2.SetActive(false);
                         }
-                        else
-                        {
-                            line4Active = true;
-                        }
+                        else line4Active = true;
                     }
                 }
             }
@@ -187,7 +194,8 @@ namespace MainGameScript
                 if (Line4.Count == 0) return;
                 var jg = CalcLongJudgement(Line4.Peek().Item1.Item2);
                 judgement.text = jg;
-                Destroy(Line4.Dequeue().Item2);
+                NoteFalling.getInstance().PoolingObjects.Enqueue(Line4.Peek().Item2);
+                Line4.Dequeue().Item2.SetActive(false);
             }
         }
 
@@ -232,16 +240,20 @@ namespace MainGameScript
             switch (line)
             {
                 case 1:
-                    Destroy(Line1.Dequeue().Item2);
+                    NoteFalling.getInstance().PoolingObjects.Enqueue(Line1.Peek().Item2);
+                    Line1.Dequeue().Item2.SetActive(false);
                     break;
                 case 2:
-                    Destroy(Line2.Dequeue().Item2);
+                    NoteFalling.getInstance().PoolingObjects.Enqueue(Line2.Peek().Item2);
+                    Line2.Dequeue().Item2.SetActive(false);
                     break;
                 case 3:
-                    Destroy(Line3.Dequeue().Item2);
+                    NoteFalling.getInstance().PoolingObjects.Enqueue(Line3.Peek().Item2);
+                    Line3.Dequeue().Item2.SetActive(false);
                     break;
                 case 4:
-                    Destroy(Line4.Dequeue().Item2);
+                    NoteFalling.getInstance().PoolingObjects.Enqueue(Line4.Peek().Item2);
+                    Line4.Dequeue().Item2.SetActive(false);
                     break;
             }
         }
