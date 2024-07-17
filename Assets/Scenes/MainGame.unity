@@ -2973,6 +2973,7 @@ MonoBehaviour:
   rate: {fileID: 327985342}
   combo: {fileID: 1596879899}
   comboTexts: {fileID: 303478700}
+  noteParticle: {fileID: 4930192799897330923, guid: 7962d3c3e7bc9214f8937890a6922d14, type: 3}
 --- !u!1 &1144500887
 GameObject:
   m_ObjectHideFlags: 0

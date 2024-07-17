@@ -20,6 +20,7 @@ namespace MainGameScript
         private static Lines _instance;
         public TextMeshProUGUI judgement, rate, combo;
         public GameObject comboTexts;
+        public GameObject noteParticle;
 
         // Start is called before the first frame update
         private void Start()
@@ -83,6 +84,7 @@ namespace MainGameScript
                         judgement.text = jg;
                         if (Line1.Peek().Item1.Item1 - Line1.Peek().Item1.Item2 == 0)
                         {
+                            Destroy(Instantiate(noteParticle, new Vector3(Line1.Peek().Item2.transform.position.x, -3.5f), Quaternion.Euler(0, 0, 0)),2f);
                             NoteFalling.getInstance().PoolingObjects.Enqueue(Line1.Peek().Item2);
                             Line1.Dequeue().Item2.SetActive(false);
                         }
@@ -99,6 +101,7 @@ namespace MainGameScript
                     {
                         var jg = CalcLongJudgement(Line1.Peek().Item1.Item2);
                         judgement.text = jg;
+                        Destroy(Instantiate(noteParticle, new Vector3(Line1.Peek().Item2.transform.position.x, -3.5f), Quaternion.Euler(0, 0, 0)),2f);
                         NoteFalling.getInstance().PoolingObjects.Enqueue(Line1.Peek().Item2);
                         Line1.Dequeue().Item2.SetActive(false);
                     }
@@ -115,6 +118,7 @@ namespace MainGameScript
                         judgement.text = jg;
                         if (Line2.Peek().Item1.Item1 - Line2.Peek().Item1.Item2 == 0)
                         {
+                            Destroy(Instantiate(noteParticle, new Vector3(Line2.Peek().Item2.transform.position.x, -3.5f), Quaternion.Euler(0, 0, 0)),2f);
                             NoteFalling.getInstance().PoolingObjects.Enqueue(Line2.Peek().Item2);
                             Line2.Dequeue().Item2.SetActive(false);
                         }
@@ -131,6 +135,7 @@ namespace MainGameScript
                     {
                         var jg = CalcLongJudgement(Line2.Peek().Item1.Item2);
                         judgement.text = jg;
+                        Destroy(Instantiate(noteParticle, new Vector3(Line2.Peek().Item2.transform.position.x, -3.5f), Quaternion.Euler(0, 0, 0)),2f);
                         NoteFalling.getInstance().PoolingObjects.Enqueue(Line2.Peek().Item2);
                         Line2.Dequeue().Item2.SetActive(false);
                     }
@@ -147,6 +152,7 @@ namespace MainGameScript
                         judgement.text = jg;
                         if (Line3.Peek().Item1.Item1 - Line3.Peek().Item1.Item2 == 0)
                         {
+                            Destroy(Instantiate(noteParticle, new Vector3(Line3.Peek().Item2.transform.position.x, -3.5f), Quaternion.Euler(0, 0, 0)),2f);
                             NoteFalling.getInstance().PoolingObjects.Enqueue(Line3.Peek().Item2);
                             Line3.Dequeue().Item2.SetActive(false);
                         }
@@ -163,6 +169,7 @@ namespace MainGameScript
                     {
                         var jg = CalcLongJudgement(Line3.Peek().Item1.Item2);
                         judgement.text = jg;
+                        Destroy(Instantiate(noteParticle, new Vector3(Line3.Peek().Item2.transform.position.x, -3.5f), Quaternion.Euler(0, 0, 0)),2f);
                         NoteFalling.getInstance().PoolingObjects.Enqueue(Line3.Peek().Item2);
                         Line3.Dequeue().Item2.SetActive(false);
                     }
@@ -179,6 +186,7 @@ namespace MainGameScript
                         judgement.text = jg;
                         if (Line4.Peek().Item1.Item1 - Line4.Peek().Item1.Item2 == 0)
                         {
+                            Destroy(Instantiate(noteParticle, new Vector3(Line4.Peek().Item2.transform.position.x, -3.5f), Quaternion.Euler(0, 0, 0)),2f);
                             NoteFalling.getInstance().PoolingObjects.Enqueue(Line4.Peek().Item2);
                             Line4.Dequeue().Item2.SetActive(false);
                         }
@@ -194,6 +202,7 @@ namespace MainGameScript
                 if (Line4.Count == 0) return;
                 var jg = CalcLongJudgement(Line4.Peek().Item1.Item2);
                 judgement.text = jg;
+                Destroy(Instantiate(noteParticle, new Vector3(Line4.Peek().Item2.transform.position.x, -3.5f), Quaternion.Euler(0, 0, 0)),2f);
                 NoteFalling.getInstance().PoolingObjects.Enqueue(Line4.Peek().Item2);
                 Line4.Dequeue().Item2.SetActive(false);
             }
@@ -240,18 +249,22 @@ namespace MainGameScript
             switch (line)
             {
                 case 1:
+                    Destroy(Instantiate(noteParticle, new Vector3(Line1.Peek().Item2.transform.position.x, -3.5f), Quaternion.Euler(0, 0, 0)),2f);
                     NoteFalling.getInstance().PoolingObjects.Enqueue(Line1.Peek().Item2);
                     Line1.Dequeue().Item2.SetActive(false);
                     break;
                 case 2:
+                    Destroy(Instantiate(noteParticle, new Vector3(Line2.Peek().Item2.transform.position.x, -3.5f), Quaternion.Euler(0, 0, 0)),2f);
                     NoteFalling.getInstance().PoolingObjects.Enqueue(Line2.Peek().Item2);
                     Line2.Dequeue().Item2.SetActive(false);
                     break;
                 case 3:
+                    Destroy(Instantiate(noteParticle, new Vector3(Line3.Peek().Item2.transform.position.x, -3.5f), Quaternion.Euler(0, 0, 0)),2f);
                     NoteFalling.getInstance().PoolingObjects.Enqueue(Line3.Peek().Item2);
                     Line3.Dequeue().Item2.SetActive(false);
                     break;
                 case 4:
+                    Destroy(Instantiate(noteParticle, new Vector3(Line4.Peek().Item2.transform.position.x, -3.5f), Quaternion.Euler(0, 0, 0)),2f);
                     NoteFalling.getInstance().PoolingObjects.Enqueue(Line4.Peek().Item2);
                     Line4.Dequeue().Item2.SetActive(false);
                     break;
