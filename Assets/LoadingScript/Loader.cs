@@ -1,29 +1,27 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace LoadingScript
 {
     public class Loader : MonoBehaviour
     {
+        public Slider slider;
+        public Slider subSlider;
         public AudioClip[] clips;
-        private static AudioSource _source;
-        private int _index = 0;
-        
-        private void Start()
-        {
-            _source = GetComponent<AudioSource>();
-        }
+        private int _index;
 
         private void Update()
         {
+            subSlider.value = Mathf.InverseLerp(0, clips.Length, _index - 1);
+            slider.value = Mathf.Lerp(slider.value, subSlider.value, 0.01f);
+            if (_index != 0 && _index <= clips.Length && clips[_index - 1].loadState != AudioDataLoadState.Loaded) return;
             if (_index >= clips.Length)
             {
+                _index++;
                 Throbber.loaded = true;
                 return;
             }
-            if (!_source.isPlaying) return;
-            _source.clip = null;
-            _source.clip = clips[_index++];
-            _source.Play();
+            clips[_index++].LoadAudioData();
         }
     }
 }
